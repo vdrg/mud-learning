@@ -29,6 +29,8 @@ contract TickSystem is System {
         continue;
       }
 
+      // TODO: refund gas + fee
+
       // TODO: use return data?
       IWorld(_world()).call(systemId, abi.encodeCall(ITick.tick, ()));
     }

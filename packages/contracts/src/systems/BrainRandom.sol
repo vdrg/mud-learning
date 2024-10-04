@@ -9,9 +9,11 @@ import { ITick } from "../ITick.sol";
 import { PlayerAction } from "../Types.sol";
 
 contract BrainRandom is System, ITick {
+  address immutable _this = address(this);
+
   function tick() external override {
     // Call the PlayerSystem with a random action
-    PlayerAction action = PlayerAction(uint8(uint256(blockhash(block.number - 1))) % 5);
+    PlayerAction action = PlayerAction(uint8(uint256(keccak256(abi.encode(block.number - 1, _this))) % 5));
 
     IWorld(_world()).main__run(action);
   }
