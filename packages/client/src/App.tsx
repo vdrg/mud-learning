@@ -11,7 +11,7 @@ const CoordinateValue = ({ value, label, isChanged }) => (
   </span>
 );
 
-const PlayerComponent = React.memo(({ x, y }: { x: number, y: number }) => {
+const PlayerComponent = React.memo(({ x, y, playerIndex }: { x: number, y: number, playerIndex: number }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const prevX = useRef(x);
   const prevY = useRef(y);
@@ -37,7 +37,7 @@ const PlayerComponent = React.memo(({ x, y }: { x: number, y: number }) => {
   return (
     <Card className={`mb-4 transition-colors duration-500 ${isAnimating ? 'bg-green-100' : ''} w-64`}>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <h2 className="text-lg font-bold">Player</h2>
+        <h2 className="text-lg font-bold">Player  {playerIndex + 1}</h2>
         <MapPin className="h-5 w-5 text-gray-500" />
       </CardHeader>
       <CardContent>
@@ -69,8 +69,8 @@ export const App = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Players</h1>
       <div className="flex flex-wrap gap-4">
-        {playerData.map(({ id, x, y }) => (
-          <PlayerComponent key={id} x={x} y={y} />
+        {playerData.map(({ id, x, y }, i) => (
+          <PlayerComponent key={id} playerIndex={i} x={x} y={y} />
         ))}
       </div>
     </div>
